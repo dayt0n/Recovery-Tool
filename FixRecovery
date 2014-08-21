@@ -1,0 +1,24 @@
+sleep 0.5
+read -p "Is the Recovery Mode device connected? [y or n]: " answer
+if [[ $answer = y ]] ; then
+    echo "Connecting to Device..."
+    sleep 2
+else
+    echo "Adios Amigo!"
+    sleep 1
+    exit
+fi
+clear
+echo "Fixing Recovery Loop..."
+iRecovery -c "setenv auto-boot true" > /dev/null
+sleep 1
+echo "Flashing New Bootchain..."
+iRecovery -c "saveenv" > /dev/null
+sleep 1
+echo "Rebooting..."
+iRecovery -c "reboot" > /dev/null
+sleep 1
+echo "Done!"
+sleep 1
+clear
+exit
